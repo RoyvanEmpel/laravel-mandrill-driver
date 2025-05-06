@@ -21,8 +21,12 @@ class MandrillServiceProvider extends ServiceProvider
             $client->setApiKey(Config::get('services.mandrill.secret'));
 
             $headers = Config::get('services.mandrill.headers', []);
+            $template = [
+                "template_name" => Config::get('services.mandrill.template_name'),
+                'template_content' => Config::get('services.mandrill.template_content'),
+            ];
 
-            return new MandrillTransport($client, $headers);
+            return new MandrillTransport($client, $headers, $template);
         });
     }
 }
